@@ -1,0 +1,73 @@
+.hero-card {
+  background-color: rgba(30, 30, 30, 0.8);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  }
+  
+  .hero-image {
+    position: relative;
+    height: 120px;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    img {
+      max-width: 80px;
+      max-height: 80px;
+    }
+    
+    .hero-level {
+      position: absolute;
+      bottom: 5px;
+      right: 10px;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: var(--accent-color);
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+  }
+  
+  .hero-info {
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    
+    h3 {
+      margin: 0 0 10px 0;
+      color: var(--primary-color);
+    }
+    
+    .hero-class {
+      font-weight: bold;
+      color: #ddd;
+    }
+  }
+  
+  .hero-actions {
+    padding: 15px;
+    text-align: center;
+    
+    .view-details {
+      display: inline-block;
+      background-color: var(--primary-color);
+      color: white;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+      
+      &:hover {
+        background-color: #0088cc;
+      }
+    }
+  }
+}

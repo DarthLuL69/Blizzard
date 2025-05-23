@@ -1,0 +1,47 @@
+<div class="hero-list-container">
+  <header class="profile-header" *ngIf="battleTag">
+    <h1>Perfil de {{ battleTag }}</h1>
+    <div class="region-badge">{{ region.toUpperCase() }}</div>
+    <button class="btn btn-search" (click)="searchAgain()">Nueva búsqueda</button>
+  </header>
+  
+  <div *ngIf="loading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p class="loading-text">Cargando datos del perfil...</p>
+  </div>
+  
+  <div *ngIf="error" class="error-container">
+    <div class="error-icon">❌</div>
+    <h3>Error al cargar el perfil</h3>
+    <p>{{ error }}</p>
+    <div class="error-actions">
+      <button class="btn btn-retry" (click)="loadProfile()">Intentar de nuevo</button>
+      <button class="btn btn-search" (click)="searchAgain()">Buscar otro perfil</button>
+    </div>
+  </div>
+  
+  <ng-container *ngIf="profile && !loading">
+    <div class="heroes-section" *ngIf="profile.heroes && profile.heroes.length > 0">
+      <h2>Héroes ({{ profile.heroes.length }})</h2>
+      
+      <div class="heroes-grid">
+        <app-hero-card 
+          *ngFor="let hero of profile.heroes" 
+          [heroId]="hero.id" 
+          [name]="hero.name" 
+          [heroClass]="hero.class" 
+          [level]="hero.level"
+          [battleTag]="battleTag"
+          [region]="region"
+          (heroSelected)="onHeroSelected($event)">
+        </app-hero-card>
+      </div>
+    </div>
+    
+    <div class="no-heroes" *ngIf="!profile.heroes || profile.heroes.length === 0">
+      <h3>No se encontraron héroes</h3>
+      <p>Este jugador no tiene personajes de Diablo III o su perfil es privado.</p>
+      <button class="btn btn-search" (click)="searchAgain()">Buscar otro perfil</button>
+    </div>
+  </ng-container>
+</div>

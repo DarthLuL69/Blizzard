@@ -1,0 +1,13 @@
+<div class="hero-card" (click)="selectHero()">
+  <div class="hero-image">
+    <img [src]="getClassImage()" [alt]="getClassName()">
+    <div class="hero-level">Nivel {{ level }}</div>
+  </div>
+  <div class="hero-info">
+    <h3>{{ name }}</h3>
+    <div class="hero-class">{{ getClassName() }}</div>
+  </div>
+  <div class="hero-actions">
+    <a [routerLink]="['/hero']" [queryParams]="{battleTag: battleTag, region: region, heroId: heroId}" class="view-details">Ver detalles</a>
+  </div>
+</div>

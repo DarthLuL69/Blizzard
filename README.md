@@ -1,59 +1,71 @@
-# Blizzard
+# Buscador de perfiles de Diablo III
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.7.
+App en Angular para buscar perfiles y héroes de Diablo III usando la API de Battle.net.
 
-## Development server
+## Funcionalidades
 
-To start a local development server, run:
+- Busca perfiles por BattleTag
+- Ve héroes de un jugador
+- Detalles de cada héroe (stats, skills)
+- Soporta varias regiones (EU, US, KR, TW)
+
+## Requisitos cumplidos
+
+- 4 componentes: Search, HeroList, HeroCard, HeroDetail
+- @Input y @Output en HeroCard
+- Directivas *ngIf y *ngFor
+- Routing y routerLink
+- Interfaces: DiabloHero, DiabloProfile, DiabloHeroSummary
+- HTTP con HttpClient
+- Observables de RxJS
+- Servicios para API calls
+
+## Comandos usados
 
 ```bash
+ng new Blizzard --standalone --routing
+ng generate component components/search --standalone
+ng generate component components/hero-list --standalone
+ng generate component components/hero-card --standalone
+ng generate component components/hero-detail --standalone
+ng generate service services/battle-net
+ng generate interface interfaces/game-interfaces
+ng serve
+ng build --prod
+```
+
+## Estructura
+
+- **SearchComponent**: Buscador de perfiles
+- **HeroListComponent**: Lista de héroes
+- **HeroCardComponent**: Tarjeta individual
+- **HeroDetailComponent**: Detalles de un héroe
+- **BattleNetService**: Para hablar con la API
+
+## Configurar
+
+Necesitas credenciales de Battle.net:
+
+```typescript
+// environment.ts
+export const environment = {
+  production: false,
+  battleNetClientId: 'TU_CLIENT_ID',
+  battleNetClientSecret: 'TU_CLIENT_SECRET'
+};
+```
+
+Para conseguir credenciales:
+1. Ve a [https://develop.battle.net/](https://develop.battle.net/)
+2. Crea cuenta de dev
+3. Registra una app
+4. Copia el Client ID y Secret
+
+## Uso
+
+```bash
+npm install
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Abre http://localhost:4200/

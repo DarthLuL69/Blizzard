@@ -1,0 +1,113 @@
+<div class="hero-detail-container">
+  <div class="back-link">
+    <button class="btn-back" (click)="goBack()">Volver al perfil</button>
+  </div>
+  
+  <div *ngIf="loading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p class="loading-text">Cargando datos del héroe...</p>
+  </div>
+  
+  <div *ngIf="error" class="error-container">
+    <div class="error-icon">❌</div>
+    <h3>Error al cargar el héroe</h3>
+    <p>{{ error }}</p>
+    <div class="error-actions">
+      <button class="btn btn-retry" (click)="loadHero()">Intentar de nuevo</button>
+      <button class="btn btn-back" (click)="goBack()">Volver al perfil</button>
+    </div>
+  </div>
+  
+  <div *ngIf="hero && !loading" class="hero-content">
+    <div class="hero-header">
+      <div class="hero-portrait">
+        <img [src]="getClassImage()" [alt]="hero.class">
+      </div>
+      <div class="hero-info">
+        <h2>{{ hero.name }}</h2>
+        <div class="hero-meta">
+          <div class="hero-class">{{ getClassName() }}</div>
+          <div class="hero-level">Nivel {{ hero.level }}</div>
+          <div *ngIf="hero.paragonLevel > 0" class="hero-paragon">Paragon {{ hero.paragonLevel }}</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="stat-overview" *ngIf="hero.stats">
+      <div class="stat-item">
+        <div class="stat-value">{{ hero.stats.life | number }}</div>
+        <div class="stat-label">Vida</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">{{ hero.stats.damage | number }}</div>
+        <div class="stat-label">Daño</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">{{ hero.stats.toughness | number }}</div>
+        <div class="stat-label">Resistencia</div>
+      </div>
+      <div class="stat-item" *ngIf="hero.stats.healing">
+        <div class="stat-value">{{ hero.stats.healing | number }}</div>
+        <div class="stat-label">Curación</div>
+      </div>
+    </div>
+    
+    <div class="hero-details">
+      <div class="detail-section" *ngIf="hero.stats">
+        <h3>Atributos</h3>
+        <ul class="attributes-list">
+          <li><span>Fuerza:</span> {{ hero.stats.strength | number }}</li>
+          <li><span>Destreza:</span> {{ hero.stats.dexterity | number }}</li>
+          <li><span>Inteligencia:</span> {{ hero.stats.intelligence | number }}</li>
+          <li><span>Vitalidad:</span> {{ hero.stats.vitality | number }}</li>
+          <li><span>Armadura:</span> {{ hero.stats.armor | number }}</li>
+        </ul>
+      </div>
+      
+      <div class="detail-section" *ngIf="hero.skills && hero.skills.active && hero.skills.active.length">
+        <h3>Habilidades activas</h3>
+        <ul class="skills-list">
+          <li *ngFor="let skill of hero.skills.active">
+            <div class="skill-icon" *ngIf="skill.skill">
+              <img [src]="getSkillIcon(skill.skill.icon)" [alt]="skill.skill.name">
+            </div>
+            <div class="skill-info" *ngIf="skill.skill">
+              <div class="skill-name">{{ skill.skill.name }}</div>
+              <div class="skill-desc">{{ skill.skill.description }}</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="detail-section" *ngIf="hero.skills && hero.skills.passive && hero.skills.passive.length">
+        <h3>Habilidades pasivas</h3>
+        <ul class="skills-list">
+          <li *ngFor="let skill of hero.skills.passive">
+            <div class="skill-icon" *ngIf="skill.skill">
+              <img [src]="getSkillIcon(skill.skill.icon)" [alt]="skill.skill.name">
+            </div>
+            <div class="skill-info" *ngIf="skill.skill">
+              <div class="skill-name">{{ skill.skill.name }}</div>
+              <div class="skill-desc">{{ skill.skill.description }}</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="detail-section" *ngIf="hero.items">
+        <h3>Equipamiento</h3>
+        <div class="items-grid">
+          <div class="item-slot" *ngFor="let item of getItemsArray()">
+            <div class="item-name" [style.color]="getItemColor(item)">
+              {{ getItemName(item) }}
+            </div>
+            <div class="item-icon">
+              <img [src]="getItemIcon(getItemIconName(item))" [alt]="getItemName(item)">
+            </div>
+            <div class="item-slot-name">{{ getSlotName(item.key) }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
