@@ -1,45 +1,45 @@
-<div class="search-container">
+<div class="search-container diablo-panel">
   <div class="search-header">
-    <h1>Buscador de perfiles de Diablo III</h1>
-    <p>Busca cualquier jugador por su BattleTag para ver sus héroes y estadísticas</p>
+    <div class="diablo-ornament-top"></div>
+    <h1>Buscador de Almas Perdidas</h1>
+    <p>Invoca a cualquier guerrero de Santuario por su nombre para contemplar sus hazañas</p>
   </div>
   
   <div class="search-form">
     <div class="form-group">
-      <label for="battleTag">BattleTag (ej. Player#1234):</label>
-      <input type="text" id="battleTag" [(ngModel)]="battleTag" placeholder="Introduce un BattleTag">
+      <label for="battleTag">BattleTag (ej. Alexandro#5555):</label>
+      <input 
+        type="text" 
+        id="battleTag" 
+        [(ngModel)]="battleTag"
+        placeholder="Introduce un BattleTag">
     </div>
     
     <div class="form-group">
-      <label for="region">Región:</label>
-      <select id="region" [(ngModel)]="region">
+      <label for="region">Reino:</label>
+      <select id="region" [(ngModel)]="region" class="diablo-select">
         <option *ngFor="let reg of regions" [value]="reg.value">{{ reg.label }}</option>
       </select>
     </div>
     
-    <button class="btn" (click)="searchProfile()">
-      Buscar perfil
+    <button (click)="searchProfile()">
+      Invocar
     </button>
   </div>
   
   <div *ngIf="error" class="error-message">
+    <div class="error-icon"></div>
     {{ error }}
   </div>
   
   <div class="search-tips">
-    <h3>Consejos para buscar</h3>
+    <h3>Pergamino de conocimiento</h3>
     <ul>
       <li>El BattleTag debe tener el formato <strong>nombre#1234</strong> (incluyendo el signo #)</li>
       <li>El BattleTag distingue entre mayúsculas y minúsculas</li>
-      <li>Debes buscar en la región correcta donde está la cuenta</li>
-      <li>El perfil debe ser público en la configuración de la cuenta de Battle.net</li>
-    </ul>
-    
-    <p>Ejemplos populares para probar:</p>
-    <ul>
-      <li><a (click)="battleTag = 'Alkaizer#1727'; region = 'us'">Alkaizer#1727 (US)</a></li>
-      <li><a (click)="battleTag = 'Quin69#1584'; region = 'us'">Quin69#1584 (US)</a></li>
-      <li><a (click)="battleTag = 'Rhykker#1168'; region = 'us'">Rhykker#1168 (US)</a></li>
+      <li>Debes buscar en el reino correcto donde habita el guerrero</li>
+      <li>El alma debe ser visible a ojos mortales en el Nexo de Battle.net</li>
     </ul>
   </div>
+  <div class="diablo-ornament-bottom"></div>
 </div>

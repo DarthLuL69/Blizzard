@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BattleNetService } from '../../services/battle-net.service';
 import { DiabloProfile } from '../../interfaces/game-interfaces';
 import { HeroCardComponent } from '../hero-card/hero-card.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-hero-list',
@@ -12,12 +13,14 @@ import { HeroCardComponent } from '../hero-card/hero-card.component';
   templateUrl: './hero-list.component.html',
   styleUrls: ['./hero-list.component.scss']
 })
-export class HeroListComponent implements OnInit {
+export class HeroListComponent implements OnInit, OnDestroy {
   profile: DiabloProfile | null = null;
   loading = true;
   error: string | null = null;
   battleTag: string = '';
   region: string = 'eu';
+  
+  private subscription = new Subscription();
 
   constructor(
     private battleNetService: BattleNetService,
@@ -26,40 +29,40 @@ export class HeroListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.battleTag = params['battleTag'] || '';
-      this.region = params['region'] || 'eu';
-      
-      if (this.battleTag) {
-        this.loadProfile();
-      } else {
-        this.router.navigate(['/search']);
-      }
-    });
+    this.subscription.add(
+      this.route.queryParams.subscribe(params => {
+        this.battleTag = params['battleTag'] || '';
+        this.region = params['region'] || 'eu';
+        
+        if (this.battleTag) {
+          this.loadProfile();
+        } else {
+          this.router.navigate(['/search']);
+        }
+      })
+    );
+  }
+  
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   loadProfile(): void {
     this.loading = true;
     this.error = null;
     
-    this.battleNetService.getDiabloProfile(this.battleTag, this.region).subscribe({
-      next: (data) => {
-        this.profile = data;
-        this.loading = false;
-      },
-      error: (err) => {
-        let errorMsg = 'Error al cargar el perfil';
-        
-        if (err.status === 404) {
-          errorMsg = `No se encontró el perfil ${this.battleTag} en la región ${this.region.toUpperCase()}`;
-        } else if (err.status === 403) {
-          errorMsg = 'Acceso denegado. Es posible que el perfil sea privado.';
+    this.subscription.add(
+      this.battleNetService.getDiabloProfile(this.battleTag, this.region).subscribe({
+        next: (data) => {
+          this.profile = data;
+          this.loading = false;
+        },
+        error: (err) => {
+          this.error = err.message || 'Error al cargar el perfil';
+          this.loading = false;
         }
-        
-        this.error = errorMsg;
-        this.loading = false;
-      }
-    });
+      })
+    );
   }
 
   searchAgain(): void {
@@ -67,6 +70,12 @@ export class HeroListComponent implements OnInit {
   }
 
   onHeroSelected(heroId: number): void {
-    console.log(`Héroe seleccionado: ${heroId}`);
+    this.router.navigate(['/hero'], { 
+      queryParams: { 
+        battleTag: this.battleTag,
+        region: this.region,
+        heroId
+      }
+    });
   }
 }

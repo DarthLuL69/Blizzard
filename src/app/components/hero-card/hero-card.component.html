@@ -1,6 +1,8 @@
 <div class="hero-card" (click)="selectHero()">
   <div class="hero-image">
-    <img [src]="getClassImage()" [alt]="getClassName()">
+    <img [src]="heroImageUrl" 
+         [alt]="getClassName()" 
+         (error)="heroImageUrl='https://blzmedia-a.akamaihd.net/d3/icons/portraits/64/x1_minionflag.png'">
     <div class="hero-level">Nivel {{ level }}</div>
   </div>
   <div class="hero-info">

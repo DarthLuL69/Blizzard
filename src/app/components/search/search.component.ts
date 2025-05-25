@@ -22,7 +22,7 @@ export class SearchComponent {
     { value: 'tw', label: 'Taiwan (TW)' }
   ];
   
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
   searchProfile(): void {
     if (!this.battleTag) {

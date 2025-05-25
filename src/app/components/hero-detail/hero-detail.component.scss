@@ -45,7 +45,7 @@
   }
   
   .error-container {
-    background-color: rgba(220, 53, 69, 0.1);
+    background-color: rgba(220, 53, 69, 0.2);
     border-radius: 8px;
     padding: 30px;
     text-align: center;
@@ -88,13 +88,13 @@
   }
   
   .hero-content {
-    background-color: rgba(30, 30, 30, 0.8);
+    background-color: rgba(30, 30, 30, 0.7);
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     
     .hero-header {
-      background-color: rgba(0, 0, 0, 0.3);
+      background-color: rgba(0, 0, 0, 0.5);
       padding: 20px;
       display: flex;
       align-items: center;
@@ -143,7 +143,7 @@
     .stat-overview {
       display: flex;
       flex-wrap: wrap;
-      background-color: rgba(0, 0, 0, 0.2);
+      background-color: rgba(0, 0, 0, 0.4);
       
       .stat-item {
         flex: 1;
@@ -205,7 +205,7 @@
           
           li {
             margin-bottom: 20px;
-            background-color: rgba(0, 0, 0, 0.2);
+            background-color: rgba(0, 0, 0, 0.4);
             padding: 15px;
             border-radius: 4px;
             display: flex;
@@ -248,7 +248,7 @@
         gap: 15px;
         
         .item-slot {
-          background-color: rgba(0, 0, 0, 0.2);
+          background-color: rgba(0, 0, 0, 0.4);
           padding: 10px;
           border-radius: 4px;
           text-align: center;

@@ -4,7 +4,7 @@
   min-height: 100vh;
   
   header {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: transparent;
     padding: 20px;
     text-align: center;
     border-bottom: 2px solid var(--primary-color);
@@ -13,6 +13,7 @@
       margin: 0;
       color: var(--primary-color);
       font-size: 1.8rem;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
     }
   }
   
@@ -47,12 +48,13 @@
   
   main {
     flex: 1;
-    background-color: #1e1e1e;
-    color: #ddd;
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
+    background-color: rgba(30, 30, 30, 0.7);
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
   }
   
   footer {
