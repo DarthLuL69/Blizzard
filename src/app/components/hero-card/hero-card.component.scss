@@ -1,78 +1,63 @@
 .hero-card {
-  background-color: rgba(30, 30, 30, 0.7);
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s, box-shadow 0.3s;
-  
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid #4a4a4a;
+  border-radius: 4px;
+  padding: 15px;
+  margin: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 120px;
+
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.8);
+    border-color: #666;
+    transform: translateY(-2px);
   }
-  
-  .hero-image {
-    position: relative;
-    height: 120px;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    
-    img {
-      max-width: 80px;
-      max-height: 80px;
-      object-fit: contain;
-      border-radius: 50%;
-      border: 2px solid var(--primary-color);
-      background-color: rgba(0, 0, 0, 0.7);
-      padding: 5px;
-    }
-    
-    .hero-level {
-      position: absolute;
-      bottom: 5px;
-      right: 10px;
-      background-color: rgba(0, 0, 0, 0.6);
-      color: var(--accent-color);
-      padding: 3px 8px;
-      border-radius: 12px;
-      font-size: 0.8rem;
-      font-weight: bold;
-    }
-  }
-  
+
   .hero-info {
-    padding: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    
+    text-align: center;
+    margin-bottom: 10px;
+
     h3 {
-      margin: 0 0 10px 0;
-      color: var(--primary-color);
+      color: #ffd100;
+      margin: 0 0 5px 0;
+      font-size: 1.2em;
     }
-    
+
     .hero-class {
-      font-weight: bold;
-      color: #ddd;
+      color: #fff;
+      font-size: 0.9em;
+      margin-bottom: 5px;
+    }
+
+    .hero-level {
+      color: #ffd100;
+      font-size: 0.8em;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 2px 8px;
+      border-radius: 10px;
+      display: inline-block;
     }
   }
-  
+
   .hero-actions {
-    padding: 15px;
     text-align: center;
-    
+
     .view-details {
-      display: inline-block;
-      background-color: var(--primary-color);
-      color: white;
+      color: #ffd100;
       text-decoration: none;
-      padding: 8px 16px;
-      border-radius: 4px;
-      font-weight: bold;
-      transition: background-color 0.3s;
-      
+      font-size: 0.9em;
+      padding: 5px 10px;
+      border: 1px solid #ffd100;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+
       &:hover {
-        background-color: #0088cc;
+        background: #ffd100;
+        color: #000;
       }
     }
   }

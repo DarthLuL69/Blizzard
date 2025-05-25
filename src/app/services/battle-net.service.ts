@@ -40,7 +40,7 @@ export class BattleNetService {
         this.tokenExpiration = new Date(Date.now() + (response.expires_in - 300) * 1000);
         return response.access_token;
       }),
-      catchError(() => throwError(() => new Error('Error de autenticación')))
+      catchError(() => throwError(() => 'Error de autenticación'))
     );
   }
 
@@ -52,7 +52,7 @@ export class BattleNetService {
         });
         return this.http.get<T>(`https://${region}.api.blizzard.com${endpoint}`, { headers });
       }),
-      catchError(() => throwError(() => new Error('Error en la petición')))
+      catchError(() => throwError(() => 'Error en la petición'))
     );
   }
 
@@ -67,18 +67,7 @@ export class BattleNetService {
   }
 
   getHeroPortraitUrl(heroClass: string, gender: string = 'male'): string {
-    const classMapping: Record<string, string> = {
-      'barbarian': 'barbarian',
-      'crusader': 'crusader',
-      'demon-hunter': 'demon-hunter',
-      'monk': 'monk',
-      'necromancer': 'necromancer',
-      'witch-doctor': 'witch-doctor',
-      'wizard': 'wizard'
-    };
-
-    const apiClass = classMapping[heroClass.toLowerCase()] || heroClass.toLowerCase();
-    return `https://blzmedia-a.akamaihd.net/d3/icons/portraits/64/${apiClass}_${gender}.png`;
+    return `https://blzmedia-a.akamaihd.net/d3/icons/portraits/64/${heroClass.toLowerCase()}_${gender}.png`;
   }
 
   getSkillIconUrl(iconName: string): string {

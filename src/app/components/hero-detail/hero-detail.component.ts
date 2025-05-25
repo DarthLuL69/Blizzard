@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BattleNetService } from '../../services/battle-net.service';
-import { DiabloHero } from '../../interfaces/game-interfaces';
+import { DiabloHero, DiabloItem } from '../../interfaces/game-interfaces';
 
 @Component({
   selector: 'app-hero-detail',
@@ -48,14 +48,8 @@ export class HeroDetailComponent implements OnInit {
         this.hero = data;
         this.loading = false;
       },
-      error: (err) => {
-        let errorMsg = 'Error al cargar los datos del héroe';
-        
-        if (err.status === 404) {
-          errorMsg = `No se encontró el héroe ${this.heroId} para el perfil ${this.battleTag}`;
-        }
-        
-        this.error = errorMsg;
+      error: () => {
+        this.error = 'No se pudo cargar el héroe';
         this.loading = false;
       }
     });
@@ -99,9 +93,21 @@ export class HeroDetailComponent implements OnInit {
     return this.battleNetService.getItemIconUrl(iconName);
   }
   
-  getItemsArray() {
-    if (!this.hero || !this.hero.items) return [];
-    return Object.entries(this.hero.items).map(([key, value]) => ({ key, value }));
+  getItemName(item: DiabloItem): string {
+    return item?.name || 'Sin nombre';
+  }
+  
+  getItemColor(item: DiabloItem): string {
+    return item?.displayColor || '#ffffff';
+  }
+  
+  getItemIconName(item: DiabloItem): string {
+    return item?.icon || 'questionmark';
+  }
+  
+  getItemsArray(): Array<DiabloItem & { key: string }> {
+    if (!this.hero?.items) return [];
+    return Object.entries(this.hero.items).map(([key, value]) => ({ ...value, key }));
   }
   
   getSlotName(slot: string): string {
@@ -124,35 +130,7 @@ export class HeroDetailComponent implements OnInit {
     return slotNames[slot] || slot;
   }
   
-  getItemName(item: {key: string; value: any}): string {
-    return item.value && item.value.name ? item.value.name : 'Vacío';
-  }
-  
-  getItemColor(item: {key: string; value: any}): string {
-    return item.value && item.value.displayColor ? item.value.displayColor : '#fff';
-  }
-  
-  getItemIconName(item: {key: string; value: any}): string {
-    return item.value && item.value.icon ? item.value.icon : '';
-  }
-  
-  private determineGender(): string {
-    if (!this.hero) return 'male';
-    
-    const femaleClassTerms = ['bárbara', 'cruzada', 'cazadora', 'monja', 'nigromanta', 'médica', 'maga'];
-    
-    for (const term of femaleClassTerms) {
-      if (this.hero.class.toLowerCase().includes(term)) {
-        return 'female';
-      }
-    }
-    
-    const femaleNameEndings = ['a', 'ia', 'na', 'ra', 'la', 'sa', 'ta', 'za'];
-    for (const ending of femaleNameEndings) {
-      if (this.hero.name.toLowerCase().endsWith(ending)) {
-        return 'female';
-      }
-    }
+  determineGender(): string {
     return 'male';
   }
 }

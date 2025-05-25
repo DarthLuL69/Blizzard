@@ -47,8 +47,8 @@ export class HeroListComponent implements OnInit {
         this.profile = data;
         this.loading = false;
       },
-      error: (err) => {
-        this.error = err.message || 'Error al cargar el perfil';
+      error: () => {
+        this.error = 'No se pudo cargar el perfil';
         this.loading = false;
       }
     });
