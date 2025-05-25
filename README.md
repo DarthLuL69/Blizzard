@@ -1,111 +1,90 @@
-# Buscador de perfiles de Diablo III
+# Proyecto Blizzard - Búsqueda de Héroes
 
-App en Angular para buscar perfiles y héroes de Diablo III usando la API de Battle.net.
+Esta aplicación web te permite buscar y ver información de héroes de Blizzard Entertainment. Está hecha con Angular y tiene una interfaz fácil de usar.
 
-## Funcionalidades
+## Lo que hace la aplicación
 
-- Busca perfiles por BattleTag
-- Ve héroes de un jugador
-- Detalles de cada héroe (stats, skills)
-- Soporta varias regiones (EU, US, KR, TW)
+- Buscar héroes por su nombre
+- Ver los detalles de cada héroe
+- Interfaz fácil de usar y que se adapta a cualquier pantalla
+- Diseño moderno inspirado en Blizzard
 
-## Requisitos cumplidos
+## Lo que he usado para hacerla
 
-- 4 componentes: Search, HeroList, HeroCard, HeroDetail
-- @Input y @Output en HeroCard
-- Directivas *ngIf y *ngFor
-- Routing y routerLink
-- Interfaces: DiabloHero, DiabloProfile, DiabloHeroSummary
-- HTTP con HttpClient
-- Observables de RxJS
-- Servicios para API calls
+- Angular 17
+- TypeScript
+- SCSS
+- HTML5
 
-## Comandos utilizados y descripción
+## Lo que he aprendido y aplicado
 
-```bash
-# Crear un nuevo proyecto Angular con soporte standalone y routing
-# --standalone: Usa componentes independientes en lugar de módulos
-# --routing: Configura el enrutamiento automáticamente
-ng new Blizzard --standalone --routing
+1. Componentes
+   - Un componente para buscar héroes
+   - Un componente para mostrar la lista de héroes
 
-# Generar componente de búsqueda como standalone
-# Este comando crea archivos .ts, .html y .scss para el componente
-# El componente maneja la interfaz de búsqueda por BattleTag
-ng generate component components/search --standalone
+2. Comunicación entre componentes
+   - @Input para recibir datos
+   - @Output para enviar eventos
 
-# Generar componente de lista de héroes
-# Este componente muestra todos los héroes de un perfil
-ng generate component components/hero-list --standalone
+3. Directivas de Angular
+   - *ngIf para mostrar u ocultar elementos
+   - *ngFor para mostrar listas
 
-# Generar componente de tarjeta de héroe
-# Este componente muestra la información resumida de cada héroe
-ng generate component components/hero-card --standalone
+4. Navegación
+   - Rutas configuradas en routing.module
+   - Enlaces con routerLink
 
-# Generar componente de detalle de héroe
-# Este componente muestra la información completa de un héroe seleccionado
-ng generate component components/hero-detail --standalone
+5. Interfaces
+   - Una para definir cómo es un héroe
+   - Otra para los resultados de búsqueda
 
-# Generar servicio para comunicación con la API de Battle.net
-# Los servicios en Angular permiten compartir lógica entre componentes
-# Este servicio maneja autenticación y peticiones a la API
-ng generate service services/battle-net
+6. Llamadas a la API
+   - HttpClient para comunicarse con el servidor
+   - Servicios para organizar el código
 
-# Generar interfaces para tipar correctamente los datos
-# Las interfaces definen la estructura de los datos que recibimos de la API
-ng generate interface interfaces/game-interfaces
+7. Observables
+   - RxJS para manejar los datos
+   - Operadores para transformar la información
 
-# Ejecutar servidor de desarrollo en http://localhost:4200
-# Con recompilación automática al guardar cambios
-ng serve
+## Cómo probar la aplicación
 
-# Construir la aplicación para producción con optimizaciones
-# Los archivos generados estarán en la carpeta dist/
-ng build --prod
-```
+1. Instalar lo necesario
+   npm install
 
-## Estructura
+2. Iniciar la aplicación
+   ng serve
 
-- **SearchComponent**: Buscador de perfiles
-- **HeroListComponent**: Lista de héroes
-- **HeroCardComponent**: Tarjeta individual
-- **HeroDetailComponent**: Detalles de un héroe
-- **BattleNetService**: Para hablar con la API
+3. Abrir en el navegador
+   http://localhost:4200
 
-## Configurar
+## Cómo está organizado el proyecto
 
-Necesitas credenciales de Battle.net:
+src/
+├── app/
+│   ├── components/          # Componentes de la aplicación
+│   ├── services/           # Servicios para la API
+│   └── models/             # Interfaces y tipos
+├── assets/                 # Imágenes y recursos
+└── styles.scss            # Estilos de la aplicación
 
-```typescript
-// environment.ts
-export const environment = {
-  production: false,
-  battleNetClientId: 'TU_CLIENT_ID',
-  battleNetClientSecret: 'TU_CLIENT_SECRET'
-};
-```
+## Comandos que he usado
 
-Para conseguir credenciales:
-1. Ve a [https://develop.battle.net/](https://develop.battle.net/)
-2. Crea cuenta de dev
-3. Registra una app
-4. Copia el Client ID y Secret
+1. Crear el proyecto
+   ng new blizzard
 
-## Uso
+2. Crear los componentes
+   ng generate component components/hero-search
+   ng generate component components/hero-list
 
-```bash
-# Instalar dependencias del proyecto
-npm install
+3. Crear el servicio
+   ng generate service services/hero
 
-# Iniciar servidor de desarrollo
-ng serve
-```
+4. Compilar para producción
+   ng build --configuration production
 
-Abre http://localhost:4200/
+## Autor
 
-## Tecnologías utilizadas
+Alexandro Suciu Peici
 
-- **Angular 16+**: Framework principal
-- **TypeScript**: Lenguaje de programación tipado
-- **RxJS**: Biblioteca para programación reactiva
-- **SCSS**: Preprocesador CSS para estilos
-- **API de Battle.net**: Para obtener datos de Diablo III
+
+
