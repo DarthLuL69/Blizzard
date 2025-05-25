@@ -2,7 +2,7 @@
   <div class="hero-image">
     <img [src]="heroImageUrl" 
          [alt]="getClassName()" 
-         (error)="heroImageUrl='https://blzmedia-a.akamaihd.net/d3/icons/portraits/64/x1_minionflag.png'">
+         (error)="handleImageError($event)">
     <div class="hero-level">Nivel {{ level }}</div>
   </div>
   <div class="hero-info">

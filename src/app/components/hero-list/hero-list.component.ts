@@ -1,10 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BattleNetService } from '../../services/battle-net.service';
 import { DiabloProfile } from '../../interfaces/game-interfaces';
 import { HeroCardComponent } from '../hero-card/hero-card.component';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-hero-list',
@@ -13,14 +12,12 @@ import { Subscription } from 'rxjs';
   templateUrl: './hero-list.component.html',
   styleUrls: ['./hero-list.component.scss']
 })
-export class HeroListComponent implements OnInit, OnDestroy {
+export class HeroListComponent implements OnInit {
   profile: DiabloProfile | null = null;
   loading = true;
   error: string | null = null;
-  battleTag: string = '';
-  region: string = 'eu';
-  
-  private subscription = new Subscription();
+  battleTag = '';
+  region = 'eu';
 
   constructor(
     private battleNetService: BattleNetService,
@@ -29,40 +26,32 @@ export class HeroListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subscription.add(
-      this.route.queryParams.subscribe(params => {
-        this.battleTag = params['battleTag'] || '';
-        this.region = params['region'] || 'eu';
-        
-        if (this.battleTag) {
-          this.loadProfile();
-        } else {
-          this.router.navigate(['/search']);
-        }
-      })
-    );
-  }
-  
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.route.queryParams.subscribe(params => {
+      this.battleTag = params['battleTag'] || '';
+      this.region = params['region'] || 'eu';
+      
+      if (this.battleTag) {
+        this.loadProfile();
+      } else {
+        this.router.navigate(['/search']);
+      }
+    });
   }
 
   loadProfile(): void {
     this.loading = true;
     this.error = null;
     
-    this.subscription.add(
-      this.battleNetService.getDiabloProfile(this.battleTag, this.region).subscribe({
-        next: (data) => {
-          this.profile = data;
-          this.loading = false;
-        },
-        error: (err) => {
-          this.error = err.message || 'Error al cargar el perfil';
-          this.loading = false;
-        }
-      })
-    );
+    this.battleNetService.getDiabloProfile(this.battleTag, this.region).subscribe({
+      next: (data) => {
+        this.profile = data;
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = err.message || 'Error al cargar el perfil';
+        this.loading = false;
+      }
+    });
   }
 
   searchAgain(): void {
@@ -71,11 +60,7 @@ export class HeroListComponent implements OnInit, OnDestroy {
 
   onHeroSelected(heroId: number): void {
     this.router.navigate(['/hero'], { 
-      queryParams: { 
-        battleTag: this.battleTag,
-        region: this.region,
-        heroId
-      }
+      queryParams: { battleTag: this.battleTag, region: this.region, heroId }
     });
   }
 }

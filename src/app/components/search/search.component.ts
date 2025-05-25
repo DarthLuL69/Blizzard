@@ -11,36 +11,28 @@ import { Router } from '@angular/router';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent {
-  battleTag: string = '';
-  region: string = 'eu';
+  battleTag = '';
+  region = 'eu';
   error: string | null = null;
   
   regions = [
-    { value: 'eu', label: 'Europa (EU)' },
-    { value: 'us', label: 'América (US)' },
-    { value: 'kr', label: 'Korea (KR)' },
-    { value: 'tw', label: 'Taiwan (TW)' }
+    { value: 'eu', label: 'Europa' },
+    { value: 'us', label: 'América' },
+    { value: 'kr', label: 'Korea' },
+    { value: 'tw', label: 'Taiwan' }
   ];
   
-  constructor(private router: Router) {}
+  constructor(private readonly router: Router) {}
 
   searchProfile(): void {
-    if (!this.battleTag) {
-      this.error = 'Por favor, introduce un BattleTag';
-      return;
-    }
-    
-    if (!this.battleTag.includes('#')) {
-      this.error = 'El BattleTag debe tener el formato nombre#1234';
+    if (!this.battleTag?.includes('#')) {
+      this.error = 'Introduce un BattleTag válido (nombre#1234)';
       return;
     }
     
     this.error = null;
     this.router.navigate(['/profile'], { 
-      queryParams: { 
-        battleTag: this.battleTag,
-        region: this.region 
-      }
+      queryParams: { battleTag: this.battleTag, region: this.region }
     });
   }
 }

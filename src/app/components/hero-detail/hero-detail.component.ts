@@ -88,15 +88,15 @@ export class HeroDetailComponent implements OnInit {
   
   getClassImage(): string {
     if (!this.hero) return '';
-    return this.battleNetService.getClassIcon(this.hero.class);
+    return this.battleNetService.getHeroPortraitUrl(this.hero.class, this.determineGender());
   }
   
   getSkillIcon(iconName: string): string {
-    return this.battleNetService.getSkillIcon(iconName);
+    return this.battleNetService.getSkillIconUrl(iconName);
   }
   
   getItemIcon(iconName: string): string {
-    return this.battleNetService.getItemIcon(iconName);
+    return this.battleNetService.getItemIconUrl(iconName);
   }
   
   getItemsArray() {
@@ -134,5 +134,25 @@ export class HeroDetailComponent implements OnInit {
   
   getItemIconName(item: {key: string; value: any}): string {
     return item.value && item.value.icon ? item.value.icon : '';
+  }
+  
+  private determineGender(): string {
+    if (!this.hero) return 'male';
+    
+    const femaleClassTerms = ['bárbara', 'cruzada', 'cazadora', 'monja', 'nigromanta', 'médica', 'maga'];
+    
+    for (const term of femaleClassTerms) {
+      if (this.hero.class.toLowerCase().includes(term)) {
+        return 'female';
+      }
+    }
+    
+    const femaleNameEndings = ['a', 'ia', 'na', 'ra', 'la', 'sa', 'ta', 'za'];
+    for (const ending of femaleNameEndings) {
+      if (this.hero.name.toLowerCase().endsWith(ending)) {
+        return 'female';
+      }
+    }
+    return 'male';
   }
 }

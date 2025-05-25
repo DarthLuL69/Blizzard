@@ -9,11 +9,21 @@
     text-align: center;
     border-bottom: 2px solid var(--primary-color);
     
-    h1 {
-      margin: 0;
-      color: var(--primary-color);
-      font-size: 1.8rem;
-      text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    .logo-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+      .diablo-logo {
+        max-width: 180px; // Reducido de 300px a 180px
+        height: auto;
+        filter: drop-shadow(0 0 10px rgba(255, 50, 0, 0.5));
+        transition: filter 0.3s ease;
+        
+        &:hover {
+          filter: drop-shadow(0 0 15px rgba(255, 100, 0, 0.7));
+        }
+      }
     }
   }
   
